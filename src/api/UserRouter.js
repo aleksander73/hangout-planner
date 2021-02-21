@@ -13,7 +13,8 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        await userService.loginUser(req.body.username, req.body.password);
+        const token = await userService.loginUser(req.body.username, req.body.password);
+        res.header('authentication-token', token);
         res.sendStatus(200);
     } catch(error) {
         res.status(400).send(error.message);

@@ -30,6 +30,7 @@ class UserService {
         if(!passwordValid) {
             throw new Error('Invalid username or password');
         }
+        return cryptographyService.generateToken({ username: foundUser.username });
     }
 }
 

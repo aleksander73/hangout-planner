@@ -1,4 +1,5 @@
 const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 class CryptographyService {
     async encrypt(string) {
@@ -9,6 +10,23 @@ class CryptographyService {
 
     async compare(string, hash) {
         return await bcryptjs.compare(string, hash);
+    }
+
+    generateToken(payload) {
+        return jwt.sign(payload, process.env.JWT_SECRET);
+    }
+
+    validateToken(req, res, next) {
+        const token = req.header('authentication-token');
+        if(!token) {
+            res.status(400).send('Access denied');
+        }
+        try {
+            req.user = jwt.verify(token, process.env.JWT_SECRET);
+            next();
+        } catch(error) {
+            res.status(400).send('Access denied');
+        }
     }
 }
 
