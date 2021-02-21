@@ -1,4 +1,5 @@
 const { User } = require('../models');
+const cryptographyService = require('./CryptographyService');
 const { Database } = require('../database');
 
 class UserService {
@@ -16,7 +17,7 @@ class UserService {
         if(foundUser) {
             throw new Error(`Username ${username} is taken`);
         }
-        const user = new User(username, email, password);
+        const user = new User(username, email, await cryptographyService.encrypt(password));
         await Database.getInstance().postDocument('users', user);
     }
 }
