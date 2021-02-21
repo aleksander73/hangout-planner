@@ -6,6 +6,10 @@ class CryptographyService {
         const encrypted = await bcryptjs.hash(string, salt);
         return encrypted;
     }
+
+    async compare(string, hash) {
+        return await bcryptjs.compare(string, hash);
+    }
 }
 
 module.exports = Object.freeze(new CryptographyService());

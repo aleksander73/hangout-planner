@@ -20,6 +20,17 @@ class UserService {
         const user = new User(username, email, await cryptographyService.encrypt(password));
         await Database.getInstance().postDocument('users', user);
     }
+
+    async loginUser(username, password) {
+        const foundUser = await this.getUserByUsername(username);
+        if(!foundUser) {
+            throw new Error('Invalid username or password');
+        }
+        const passwordValid = await cryptographyService.compare(password, foundUser.password);
+        if(!passwordValid) {
+            throw new Error('Invalid username or password');
+        }
+    }
 }
 
 module.exports = Object.freeze(new UserService());
