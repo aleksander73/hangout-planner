@@ -3,8 +3,12 @@ const { userService } = require('../services');
 
 const router = express.Router();
 router.post('/register', async (req, res) => {
-    let registered = await userService.registerUser(req.body.username, req.body.email, req.body.password);
-    registered ? res.sendStatus(200) : res.send(500, "Username already exists!");
+    try {
+        await userService.registerUser(req.body.username, req.body.email, req.body.password);
+        res.sendStatus(200);
+    } catch(error) {
+        res.status(500).send(error.message);
+    }
 });
 
 module.exports = router;

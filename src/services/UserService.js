@@ -14,11 +14,10 @@ class UserService {
     async registerUser(username, email, password) {
         const foundUser = await this.getUserByUsername(username);
         if(foundUser) {
-            return false;
+            throw new Error(`Username ${username} is taken`);
         }
         const user = new User(username, email, password);
         await Database.getInstance().postDocument('users', user);
-        return true;
     }
 }
 
