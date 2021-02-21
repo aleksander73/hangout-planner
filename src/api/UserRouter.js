@@ -2,6 +2,14 @@ const express = require('express');
 const { userService } = require('../services');
 
 const router = express.Router();
+
+router.post('/exists', async (req, res) => {
+    const foundUser = await userService.getUserByUsername(req.body.username);
+    res.status(200).send({
+        exists: Boolean(foundUser)
+    });
+});
+
 router.post('/register', async (req, res) => {
     try {
         await userService.registerUser(req.body.username, req.body.email, req.body.password);
