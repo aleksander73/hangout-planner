@@ -31,13 +31,19 @@ class Database {
         return client.connect();
     }
 
-    async getCollection(collection, filter) {
+    async loadCollection(collection) {
         const connection = await this.getConnection();
-        return connection.db(this.database).collection(collection).find(filter).toArray();
+        return connection.db(this.database).collection(collection);
     }
 
-    async getUsersCollection(filter) {
-        return this.getCollection('users', filter || {});
+    async getCollection(collectionName, filter) {
+        const collection = await this.loadCollection(collectionName);
+        return collection.find(filter || {}).toArray();
+    }
+
+    async postDocument(collectionName, document) {
+        const collection = await this.loadCollection(collectionName);
+        return collection.insertOne(document);
     }
 }
 
