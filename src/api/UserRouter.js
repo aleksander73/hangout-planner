@@ -22,11 +22,16 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const token = await userService.loginUser(req.body.username, req.body.password);
-        res.header('authentication-token', token);
+        res.cookie('authentication-token', token, { secure: process.env.NODE_ENV === 'production' });
         res.sendStatus(200);
     } catch(error) {
         res.status(400).send(error.message);
     }
+});
+
+router.get('/logout', (req, res) => {
+    res.clearCookie('authentication-token');
+    res.sendStatus(200);
 });
 
 module.exports = router;
