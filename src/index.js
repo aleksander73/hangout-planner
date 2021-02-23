@@ -1,7 +1,7 @@
 const dotenv = require('dotenv');
 const express = require('express');
 const cookieParser = require('cookie-parser');
-const { validateToken } = require('./services/').cryptographyService;
+const { validateToken } = require('./services').cryptographyService;
 const { userRouter } = require('./api');
 dotenv.config();
 
