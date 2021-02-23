@@ -16,7 +16,7 @@ class CryptographyService {
         return jwt.sign(payload, process.env.JWT_SECRET);
     }
 
-    validateToken(req, res, next) {
+    authorize(req, res, next) {
         const token = req.cookies['authentication-token'];
         if(!token) {
             res.status(400).send('Access denied');
