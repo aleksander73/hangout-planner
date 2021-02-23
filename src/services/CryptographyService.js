@@ -17,7 +17,7 @@ class CryptographyService {
     }
 
     validateToken(req, res, next) {
-        const token = req.header('authentication-token');
+        const token = req.cookies['authentication-token'];
         if(!token) {
             res.status(400).send('Access denied');
         }
