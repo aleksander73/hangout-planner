@@ -20,6 +20,7 @@ class CryptographyService {
         const token = req.cookies['authentication-token'];
         if(!token) {
             res.status(400).send('Access denied');
+            return;
         }
         try {
             req.user = jwt.verify(token, process.env.JWT_SECRET);
