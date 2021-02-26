@@ -1,3 +1,15 @@
 <template>
-  <h1>Hello from Hangout Planner frontend</h1>
+  <div>
+    <register/>
+  </div>
 </template>
+
+<script>
+import Register from './components/Register.vue';
+
+export default {
+  components: {
+    'register': Register
+  }
+}
+</script>
