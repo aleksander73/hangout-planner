@@ -4,7 +4,7 @@
       <img class="icon" :src=icon>
     </div>
     <div class="input-container">
-      <input :type=inputType :placeholder=placeholder @input=onValueUpdated>
+      <input :type=inputType :placeholder=placeholder v-model.trim=value @input=onValueUpdated>
     </div>
   </div>
 </template>
@@ -53,7 +53,8 @@ export default {
   data() {
     return {
       inputType: '',
-      icon: {}
+      icon: {},
+      value: ''
     }
   },
   props: {
@@ -67,7 +68,7 @@ export default {
   },
   methods: {
     onValueUpdated(event) {
-      this.$emit('valueUpdated', event.target.value);
+      this.$emit('valueUpdated', this.value);
     }
   },
   created() {
