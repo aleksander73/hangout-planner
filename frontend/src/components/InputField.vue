@@ -4,7 +4,7 @@
       <img class="icon" :src=icon>
     </div>
     <div class="input-container">
-      <input :type=inputType :placeholder=placeholder>
+      <input :type=inputType :placeholder=placeholder @input=onValueUpdated>
     </div>
   </div>
 </template>
@@ -63,6 +63,11 @@ export default {
     },
     placeholder: {
       type: String
+    }
+  },
+  methods: {
+    onValueUpdated(event) {
+      this.$emit('valueUpdated', event.target.value);
     }
   },
   created() {

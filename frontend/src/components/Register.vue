@@ -1,9 +1,9 @@
 <template>
   <div class="registration-container">
-    <input-field tag="username" placeholder="Username"/>
-    <input-field tag="email" placeholder="E-mail"/>
-    <input-field tag="password" placeholder="Password"/>
-    <input-field tag="password" placeholder="Confirm password" />
+    <input-field tag="username" placeholder="Username" @valueUpdated=onUsernameUpdated />
+    <input-field tag="email" placeholder="E-mail" @valueUpdated=onEmailUpdated />
+    <input-field tag="password" placeholder="Password" @valueUpdated=onPasswordUpdated />
+    <input-field tag="password" placeholder="Confirm password" @valueUpdated=onPasswordConfirmUpdated />
   </div>
 </template>
 
@@ -28,6 +28,20 @@ export default {
   },
   components: {
     'input-field': InputField
+  },
+  methods: {
+    onUsernameUpdated(value) {
+      this.username = value;
+    },
+    onEmailUpdated(value) {
+      this.email = value;
+    },
+    onPasswordUpdated(value) {
+      this.password = value;
+    },
+    onPasswordConfirmUpdated(value) {
+      this.confirmPassword = value;
+    }
   }
 }
 </script>
