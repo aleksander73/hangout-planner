@@ -1,9 +1,10 @@
 <template>
   <div class="registration-container">
-    <input-field tag="username" placeholder="Username" @valueUpdated=onUsernameUpdated />
-    <input-field tag="email" placeholder="E-mail" @valueUpdated=onEmailUpdated />
-    <input-field tag="password" placeholder="Password" @valueUpdated=onPasswordUpdated />
-    <input-field tag="password" placeholder="Confirm password" @valueUpdated=onPasswordConfirmUpdated />
+    <input-field :model=username />
+    <input-field :model=email />
+    <input-field :model=password />
+    <input-field :model=confirmPassword />
+    <button @click=register >Register</button>
   </div>
 </template>
 
@@ -15,33 +16,25 @@
 </style>
 
 <script>
-import InputField from './InputField.vue';
+import InputFieldComponent from './InputField.vue';
+import { InputField } from '../models';
 
 export default {
   data() {
     return {
-      username: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
+      username: new InputField('text', require('../../assets/icons/user.svg'), 'Username'),
+      email: new InputField('text', require('../../assets/icons/email.svg'), 'E-mail'),
+      password: new InputField('password', require('../../assets/icons/password.svg'), 'Password'),
+      confirmPassword: new InputField('password', require('../../assets/icons/password.svg'), 'Confirm password')
     }
   },
   components: {
-    'input-field': InputField
+    'input-field': InputFieldComponent
   },
   methods: {
-    onUsernameUpdated(value) {
-      this.username = value;
-    },
-    onEmailUpdated(value) {
-      this.email = value;
-    },
-    onPasswordUpdated(value) {
-      this.password = value;
-    },
-    onPasswordConfirmUpdated(value) {
-      this.confirmPassword = value;
+    register() {
+      
     }
-  }
+  },
 }
 </script>

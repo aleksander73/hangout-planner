@@ -1,7 +1,7 @@
 import InputField from './InputField.vue';
-import Registration from './Registration.vue';
+import Register from './Register.vue';
 
 export {
     InputField,
-    Registration
+    Register
 };

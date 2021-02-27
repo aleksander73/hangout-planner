@@ -1,10 +1,10 @@
 <template>
   <div class="input-field-container">
     <div class="icon-container">
-      <img class="icon" :src=icon>
+      <img class="icon" :src=model.icon>
     </div>
     <div class="input-container">
-      <input :type=inputType :placeholder=placeholder v-model.trim=value @input=onValueUpdated>
+      <input :type=model.inputType :placeholder=model.placeholder v-model.trim=model.value />
     </div>
   </div>
 </template>
@@ -48,32 +48,14 @@ input {
 </style>
 
 <script>
+import { InputField } from '../models';
+
 export default {
-  data() {
-    return {
-      inputType: '',
-      icon: {},
-      value: ''
-    }
-  },
   props: {
-    tag: {
-      type: String,
+    model: {
+      type: InputField,
       required: true
-    },
-    placeholder: {
-      type: String
     }
-  },
-  methods: {
-    onValueUpdated(event) {
-      this.$emit('valueUpdated', this.value);
-    }
-  },
-  created() {
-    let icon = this.$store.getters.getInputFieldByTag(this.tag);
-    this.inputType = icon.inputType;
-    this.icon = icon.icon;
   }
 }
 </script>
