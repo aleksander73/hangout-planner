@@ -25,7 +25,6 @@
   border-radius: 4px 0px 0px 4px;
   border-right: 1px solid black;
   display: flex;
-  height: inherit;
   justify-content: center;
   width: 15%;
 }
