@@ -39,6 +39,6 @@ export default {
   },
   created() {
     this.confirmPassword.addValidation(sameAs(this.password, 'password'));
-  },
+  }
 }
 </script>
