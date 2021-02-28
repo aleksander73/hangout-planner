@@ -7,6 +7,10 @@ class InputField {
         this.validations = validations || [];
     }
 
+    addValidation(validation) {
+        this.validations.push(validation);
+    }
+
     async validate() {
         for(let i = 0; i < this.validations.length; i++) {
             const validation = this.validations[i];

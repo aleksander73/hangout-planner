@@ -18,7 +18,7 @@
 <script>
 import InputFieldComponent from './InputField.vue';
 import { InputField } from '../views/utility';
-import { isEmail, max, min, required, usernameUnique } from '../views/utility/validations';
+import { isEmail, max, min, required, sameAs, usernameUnique } from '../views/utility/validations';
 
 export default {
   data() {
@@ -36,6 +36,9 @@ export default {
     register() {
       
     }
-  }
+  },
+  created() {
+    this.confirmPassword.addValidation(sameAs(this.password, 'password'));
+  },
 }
 </script>
