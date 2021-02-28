@@ -1,3 +1,5 @@
+import ValidationResult from './ValidationResult';
+
 class InputField {
     constructor(inputType, icon, placeholder, validations) {
         this.inputType = inputType;
@@ -16,9 +18,10 @@ class InputField {
             const validation = this.validations[i];
             const isValid = await validation.test(this.value);
             if(!isValid) {
-                throw new Error(validation.errorMessage);
+                return new ValidationResult(false, validation.errorMessage);
             }
         }
+        return new ValidationResult(true, '');
     }
 }
 

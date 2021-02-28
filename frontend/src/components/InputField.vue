@@ -91,7 +91,7 @@ import { InputField } from '../views/utility';
 export default {
   data() {
     return {
-      valid: undefined,
+      isValid: undefined,
       errorMessage: ''
     }
   },
@@ -104,21 +104,16 @@ export default {
   methods: {
     in_validClassList(base) {
       let dynamicClasses = '';
-      if(this.valid !== undefined) {
-        const prefix = this.valid ? '' : 'in';
+      if(this.isValid !== undefined) {
+        const prefix = this.isValid ? '' : 'in';
         dynamicClasses += `${base}-${prefix}valid`; 
       }
       return `${base} ${dynamicClasses}`
     },
     async validate() {
-      try {
-        await this.model.validate();
-        this.valid = true;
-        this.errorMessage = '';
-      } catch(error) {
-        this.valid = false;
-        this.errorMessage = error.message;
-      }
+      const { isValid, errorMessage } = await this.model.validate();
+      this.isValid = isValid;
+      this.errorMessage = errorMessage;
     }
   }
 }
