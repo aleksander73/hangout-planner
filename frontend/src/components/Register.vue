@@ -4,7 +4,7 @@
     <input-field :model=email />
     <input-field :model=password />
     <input-field :model=confirmPassword />
-    <button @click=register >Register</button>
+    <button @click=register>Register</button>
   </div>
 </template>
 
@@ -17,7 +17,7 @@
 
 <script>
 import InputFieldComponent from './InputField.vue';
-import { InputField } from '../models';
+import { InputField } from '../views/utility';
 
 export default {
   data() {
@@ -35,6 +35,6 @@ export default {
     register() {
       
     }
-  },
+  }
 }
 </script>
