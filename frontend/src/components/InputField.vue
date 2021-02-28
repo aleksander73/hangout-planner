@@ -4,8 +4,9 @@
       <img class="icon" :src=model.icon>
     </div>
     <div class="input-container">
-      <input :type=model.inputType :placeholder=model.placeholder v-model.trim=model.value />
+      <input :type=model.inputType :placeholder=model.placeholder v-model.trim=model.value @blur=validate />
     </div>
+    <span>{{ errorMessage }}</span>
   </div>
 </template>
 
@@ -48,13 +49,28 @@ input {
 </style>
 
 <script>
-import { InputField } from '../models';
+import { InputField } from '../views/utility';
 
 export default {
+  data() {
+    return {
+      errorMessage: ''
+    }
+  },
   props: {
     model: {
       type: InputField,
       required: true
+    }
+  },
+  methods: {
+    async validate() {
+      try {
+        await this.model.validate();
+        this.errorMessage = '';
+      } catch(error) {
+        this.errorMessage = error.message;
+      }
     }
   }
 }
