@@ -43,8 +43,8 @@
   border-right: 1px solid black;
   display: flex;
   justify-content: center;
-  width: 15%;
   transition: background-color 0.35s ease, border-color 0.35s ease;
+  width: 15%;
 }
 
 .icon-container-valid {
@@ -69,8 +69,8 @@
 
 input {
   border: 0;
-  outline: none;
   font-size: 1.25em;
+  outline: none;
   width: 90%;
 }
 
