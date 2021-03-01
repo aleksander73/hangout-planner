@@ -5,7 +5,7 @@
         <img class="icon" :src=model.icon>
       </div>
       <div class="input-container">
-        <input :type=model.inputType :placeholder=model.placeholder v-model.trim=model.value @input=validate />
+        <input :type=model.inputType :placeholder=model.placeholder v-model.trim=model.value @input=onInput @blur=onBlur />
       </div>
     </div>
     <div class="error-container">
@@ -110,10 +110,20 @@ export default {
       }
       return `${base} ${dynamicClasses}`
     },
+    onInput() {
+      this.isValid = undefined;
+    },
+    async onBlur() {
+      await this.validate();
+      this.$emit('lostFocus', {
+        id: this.model.id
+      });
+    },
     async validate() {
       const { isValid, errorMessage } = await this.model.validate();
       this.isValid = isValid;
       this.errorMessage = errorMessage;
+      return isValid;
     }
   }
 }

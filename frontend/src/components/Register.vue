@@ -1,9 +1,6 @@
 <template>
   <div class="registration-container">
-    <input-field :model=username />
-    <input-field :model=email />
-    <input-field :model=password />
-    <input-field :model=confirmPassword />
+    <input-field v-for="(inputField, index) in inputFields" :key=index :ref=inputField.id :model=inputField @lostFocus=onLostFocus />
     <button @click=register>Register</button>
   </div>
 </template>
@@ -23,22 +20,43 @@ import { isEmail, max, min, required, sameAs, usernameUnique } from '../views/ut
 export default {
   data() {
     return {
-      username: new InputField('text', require('../../assets/icons/user.svg'), 'Username', [ required, usernameUnique, min(3) ]),
-      email: new InputField('text', require('../../assets/icons/email.svg'), 'E-mail', [ required, isEmail ]),
-      password: new InputField('password', require('../../assets/icons/password.svg'), 'Password', [ required ]),
-      confirmPassword: new InputField('password', require('../../assets/icons/password.svg'), 'Confirm password', [ required ])
+      inputFields: [
+        new InputField('username', 'text', require('../../assets/icons/user.svg'), 'Username', [ required, usernameUnique, min(3) ]),
+        new InputField('email', 'text', require('../../assets/icons/email.svg'), 'E-mail', [ required, isEmail ]),
+        new InputField('password', 'password', require('../../assets/icons/password.svg'), 'Password', [ required ]),
+        new InputField('confirm-password', 'password', require('../../assets/icons/password.svg'), 'Confirm password', [ required ])
+      ]
     }
   },
   components: {
     'input-field': InputFieldComponent
   },
   methods: {
+    getInputFieldById(id) {
+      return this.inputFields.find(inputField => inputField.id === id);
+    },
+    async onLostFocus(data) {
+      if(data.id === 'password') {
+        let otherField = this.$refs['confirm-password'];
+        if(otherField.model.value) {
+          await otherField.validate();
+        }
+      }
+      if(data.id === 'confirm-password') {
+        let otherField = this.$refs['password'];
+        if(otherField.model.value) {
+          await otherField.validate();
+        }
+      }
+    },
     register() {
       
     }
   },
   created() {
-    this.confirmPassword.addValidation(sameAs(this.password, 'password'));
+    let password = this.getInputFieldById('password');
+    let confirmPassword = this.getInputFieldById('confirm-password');
+    confirmPassword.addValidation(sameAs(password, 'password'));
   }
 }
 </script>

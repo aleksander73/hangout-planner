@@ -1,7 +1,8 @@
 import ValidationResult from './ValidationResult';
 
 class InputField {
-    constructor(inputType, icon, placeholder, validations) {
+    constructor(id, inputType, icon, placeholder, validations) {
+        this.id = id;
         this.inputType = inputType;
         this.icon = icon;
         this.placeholder = placeholder || '';
