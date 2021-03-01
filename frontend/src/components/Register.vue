@@ -15,16 +15,17 @@
 <script>
 import InputFieldComponent from './InputField.vue';
 import { InputField } from '../views/utility';
-import { isEmail, max, min, required, sameAs, usernameUnique } from '../views/utility/validations';
+import { isEmail, max, min, required, sameAs, simple, usernameUnique } from '../views/utility/validations';
+import apiClient from '../api/ApiClient';
 
 export default {
   data() {
     return {
       inputFields: [
-        new InputField('username', 'text', require('../../assets/icons/user.svg'), 'Username', [ required, usernameUnique, min(3) ]),
-        new InputField('email', 'text', require('../../assets/icons/email.svg'), 'E-mail', [ required, isEmail ]),
-        new InputField('password', 'password', require('../../assets/icons/password.svg'), 'Password', [ required ]),
-        new InputField('confirm-password', 'password', require('../../assets/icons/password.svg'), 'Confirm password', [ required ])
+        new InputField('username', 'text', require('../../assets/icons/user.svg'), 'Username', [ required, max(255), simple, usernameUnique ]),
+        new InputField('email', 'text', require('../../assets/icons/email.svg'), 'E-mail', [ required, max(255), isEmail ]),
+        new InputField('password', 'password', require('../../assets/icons/password.svg'), 'Password', [ required, min(8), max(255) ]),
+        new InputField('confirm-password', 'password', require('../../assets/icons/password.svg'), 'Confirm password', [ required, min(8), max(255) ])
       ]
     }
   },
@@ -33,7 +34,7 @@ export default {
   },
   methods: {
     getInputFieldById(id) {
-      return this.inputFields.find(inputField => inputField.id === id);
+      return Object.values(this.$refs).find(ref => ref.model.id === id);
     },
     async onLostFocus(data) {
       if(data.id === 'password') {
@@ -49,13 +50,21 @@ export default {
         }
       }
     },
-    register() {
-      
+    async register() {
+      const valid = Object.values(this.$refs).every(ref => ref.isValid);
+      if(valid) {
+        const username = this.getInputFieldById('username').model.value;
+        const email = this.getInputFieldById('email').model.value;
+        const password = this.getInputFieldById('password').model.value;
+        await apiClient.registerUser(username, email, password);
+      } else {
+        console.log('User invalid!');
+      }
     }
   },
-  created() {
-    let password = this.getInputFieldById('password');
-    let confirmPassword = this.getInputFieldById('confirm-password');
+  mounted() {
+    let password = this.getInputFieldById('password').model;
+    let confirmPassword = this.getInputFieldById('confirm-password').model;
     confirmPassword.addValidation(sameAs(password, 'password'));
   }
 }
