@@ -73,14 +73,18 @@ export default {
       }
     },
     async register() {
-      const valid = Object.values(this.$refs).every(ref => ref.isValid);
+      const inputFields = Object.values(this.$refs);
+      const valid = inputFields.every(ref => ref.isValid);
       if(valid) {
         const username = this.getInputFieldById('username').model.value;
         const email = this.getInputFieldById('email').model.value;
         const password = this.getInputFieldById('password').model.value;
         await apiClient.registerUser(username, email, password);
       } else {
-        console.log('User invalid!');
+        inputFields.filter(inputField => !inputField.isValid).forEach(inputField => { 
+          inputField.validate();
+          console.log('Validating', inputField.model.id);
+        });
       }
     }
   },
