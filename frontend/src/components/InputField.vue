@@ -111,7 +111,10 @@ export default {
       return `${base} ${dynamicClasses}`
     },
     onInput() {
-      this.isValid = undefined;
+      if(this.isValid !== undefined) {
+        this.isValid = undefined;
+        this.errorMessage = '';
+      }
     },
     async onBlur() {
       await this.validate();
