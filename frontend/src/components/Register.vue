@@ -22,10 +22,10 @@ export default {
   data() {
     return {
       inputFields: [
-        new InputField('username', 'text', require('../../assets/icons/user.svg'), 'Username', [ required, max(255), simple, usernameUnique ]),
-        new InputField('email', 'text', require('../../assets/icons/email.svg'), 'E-mail', [ required, max(255), isEmail ]),
-        new InputField('password', 'password', require('../../assets/icons/password.svg'), 'Password', [ required, min(8), max(255) ]),
-        new InputField('confirm-password', 'password', require('../../assets/icons/password.svg'), 'Confirm password', [ required, min(8), max(255) ])
+        new InputField('username', 'text', require('../../assets/icons/user.svg'), 'username', [ required, max(255), simple, usernameUnique ]),
+        new InputField('email', 'text', require('../../assets/icons/email.svg'), 'e-mail', [ required, max(255), isEmail ]),
+        new InputField('password', 'password', require('../../assets/icons/password.svg'), 'password', [ required, min(8), max(255) ]),
+        new InputField('confirm-password', 'password', require('../../assets/icons/password.svg'), 'confirm password', [ required, min(8), max(255) ])
       ]
     }
   },
