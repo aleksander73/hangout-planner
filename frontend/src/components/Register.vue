@@ -81,10 +81,7 @@ export default {
         const password = this.getInputFieldById('password').model.value;
         await apiClient.registerUser(username, email, password);
       } else {
-        inputFields.filter(inputField => !inputField.isValid).forEach(inputField => { 
-          inputField.validate();
-          console.log('Validating', inputField.model.id);
-        });
+        inputFields.filter(inputField => !inputField.isValid).forEach(inputField => inputField.validate());
       }
     }
   },
