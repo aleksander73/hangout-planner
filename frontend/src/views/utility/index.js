@@ -1,7 +1,7 @@
 import InputField from './InputField';
-import Validation from './Validation';
+import validationFunctions from './validationFunctions';
 
 export {
     InputField,
-    Validation
-};
+    validationFunctions
+}

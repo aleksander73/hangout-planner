@@ -37,17 +37,20 @@ button:hover {
 <script>
 import InputFieldComponent from './InputField.vue';
 import { InputField } from '../views/utility';
-import { isEmail, max, min, required, sameAs, simple, usernameUnique } from '../views/utility/validations';
+import { inputValidations } from '../../../src/data/validation';
+const { usernameValidation, emailValidation, passwordValidation } = inputValidations.registration;
+import { validationFunctions } from '../views/utility';
+const { sameAs, usernameUnique } = validationFunctions;
 import apiClient from '../api/ApiClient';
 
 export default {
   data() {
     return {
       inputFields: [
-        new InputField('username', 'text', require('../../assets/icons/user.svg'), 'username', [ required, max(255), simple, usernameUnique ]),
-        new InputField('email', 'text', require('../../assets/icons/email.svg'), 'e-mail', [ required, max(255), isEmail ]),
-        new InputField('password', 'password', require('../../assets/icons/password.svg'), 'password', [ required, min(8), max(255) ]),
-        new InputField('confirm-password', 'password', require('../../assets/icons/password.svg'), 'confirm password', [ required, min(8), max(255) ])
+        new InputField('username', 'text', require('../../assets/icons/user.svg'), 'username', usernameValidation),
+        new InputField('email', 'text', require('../../assets/icons/email.svg'), 'e-mail', emailValidation),
+        new InputField('password', 'password', require('../../assets/icons/password.svg'), 'password', passwordValidation),
+        new InputField('confirm-password', 'password', require('../../assets/icons/password.svg'), 'confirm password', [...passwordValidation])
       ]
     }
   },
@@ -96,8 +99,10 @@ export default {
     }
   },
   mounted() {
+    let username = this.getInputFieldById('username').model;
     let password = this.getInputFieldById('password').model;
     let confirmPassword = this.getInputFieldById('confirm-password').model;
+    username.addValidation(usernameUnique);
     confirmPassword.addValidation(sameAs(password, 'password'));
   }
 }

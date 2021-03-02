@@ -1,4 +1,4 @@
-import ValidationResult from './ValidationResult';
+import { validationHelper } from '../../../../src/data/validation';
 
 class InputField {
     constructor(id, inputType, icon, placeholder, validations) {
@@ -15,14 +15,7 @@ class InputField {
     }
 
     async validate() {
-        for(let i = 0; i < this.validations.length; i++) {
-            const validation = this.validations[i];
-            const isValid = await validation.test(this.value);
-            if(!isValid) {
-                return new ValidationResult(false, validation.errorMessage);
-            }
-        }
-        return new ValidationResult(true, '');
+        return await validationHelper.validateSet(this.validations, this.value);
     }
 }
 

@@ -5,4 +5,4 @@ class ValidationResult {
     }
 }
 
-export default ValidationResult;
+module.exports = ValidationResult;
