@@ -1,36 +1,59 @@
 <template>
   <div class="registration-container">
+    <div class="title-container">
+      <h1>Join us</h1>
+    </div>
     <div class="input-container">
       <input-field v-for="(inputField, index) in inputFields" :key=index :ref=inputField.id :model=inputField @lostFocus=onLostFocus />
     </div>
     <button @click=register>Register</button>
+    <div class="switch">Already have an account? <a href="/login">Log in</a></div>
   </div>
 </template>
 
 <style scoped>
 .registration-container {
   align-items: center;
+  background-color: white;
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
+  height: 575px;
   justify-content: center;
-  width: 350px;
+  padding: 40px 75px 70px 75px;
+  width: 400px;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  width: inherit;
+}
+
+.title-container > h1 {
+  margin-bottom: 1em;
+  text-transform: uppercase;
 }
 
 button {
-  background-color: rgb(22, 142, 255);
-  border: 0;
-  border-radius: 5px;
-  color: white;
-  cursor: pointer;
-  font-size: 1.25em;
-  height: 45px;
-  outline: none;
-  padding: 0.5em 1em;
-  transition: background-color 0.25s ease;
+  font-weight: 600;
+  height: 65px;
+  margin-top: 20px;
+  text-transform: uppercase;
+  width: 400px;
 }
 
-button:hover {
-  background-color: rgb(0, 120, 233);
+.switch {
+  border-top: 1px solid black;
+  margin-top: 2em;
+  padding-top: 1em;
+  text-align: center; 
+  width: inherit;
+}
+
+.switch > a {
+  color: blue;
+  text-decoration: none;
 }
 </style>
 

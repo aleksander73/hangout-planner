@@ -1,11 +1,11 @@
 <template>
   <div class="container">
-    <div :class="in_validClassList('input-field-container')">
-      <div :class="in_validClassList('icon-container')">
-        <img class="icon" :src=model.icon>
+    <div :class="inputFieldClass('input-field-container')">
+      <div :class="iconClass('icon-container')">
+        <img class="icon" :src=model.icon :title=model.placeholder>
       </div>
       <div class="input-container">
-        <input :type=model.inputType :placeholder=model.placeholder.toLowerCase() v-model.trim=model.value @input=onInput @blur=onBlur />
+        <input :type=model.inputType :placeholder=model.placeholder.toLowerCase() v-model.trim=model.value @focus=onFocus @input=onInput @blur=onBlur />
       </div>
     </div>
     <div class="error-container">
@@ -16,12 +16,12 @@
 
 <style scoped>
 .container {
-  width: 350px;
+  width: 400px;
 }
 
 .input-field-container {
   border: 1px solid black;
-  border-radius: 5px;
+  border-radius: 0px;
   display: flex;
   height: 50px;
   justify-content: flex-start;
@@ -29,32 +29,30 @@
 }
 
 .input-field-container-valid {
-  border-color: green;
+  border-color: rgb(70, 205, 70);
 }
 
 .input-field-container-invalid {
-  border-color: red;
+  border-color: rgb(250, 50, 50);
 }
 
 .icon-container {
   align-items: center;
-  background-color: rgb(220, 220, 220);
-  border-radius: 4px 0px 0px 4px;
   border-right: 1px solid black;
   display: flex;
   justify-content: center;
-  transition: background-color 0.35s ease, border-color 0.35s ease;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
   width: 15%;
 }
 
 .icon-container-valid {
-  background-color: rgb(111, 231, 111);
-  border-right-color: green;
+  background-color: rgb(70, 205, 70);
+  border-right-color: rgb(70, 205, 70);
 }
 
 .icon-container-invalid {
-  background-color: rgb(255, 67, 67);
-  border-right-color: red;
+  background-color: rgb(250, 50, 50);
+  border-right-color: rgb(250, 50, 50);
 }
 
 .icon {
@@ -69,19 +67,23 @@
 
 input {
   border: 0;
-  font-size: 1.25em;
+  font-size: 1.1em;
   outline: none;
   width: 90%;
 }
 
+.shadow {
+  box-shadow: 0 0 7px rgb(45, 165, 235);
+}
+
 .error-container {
   display: flex;
-  justify-content: center;
+  height: 30px;
+  justify-content: flex-end;
 }
 
 .error-container > span {
   color: red;
-  margin: 0.5em 0;
 }
 </style>
 
@@ -91,6 +93,7 @@ import { InputField } from '../views/utility';
 export default {
   data() {
     return {
+      focused: false,
       isValid: undefined,
       errorMessage: ''
     }
@@ -102,6 +105,14 @@ export default {
     }
   },
   methods: {
+    inputFieldClass(base) {
+      const in_validClassList = this.in_validClassList(base);
+      let shadow = this.focused ? 'shadow' : '';
+      return `${in_validClassList} ${shadow}`;
+    },
+    iconClass(base) {
+      return this.in_validClassList(base);
+    },
     in_validClassList(base) {
       let dynamicClasses = '';
       if(this.isValid !== undefined) {
@@ -110,6 +121,9 @@ export default {
       }
       return `${base} ${dynamicClasses}`
     },
+    onFocus() {
+      this.focused = true;
+    },
     onInput() {
       if(this.isValid !== undefined) {
         this.isValid = undefined;
@@ -117,6 +131,7 @@ export default {
       }
     },
     async onBlur() {
+      this.focused = false;
       await this.validate();
       this.$emit('lostFocus', {
         id: this.model.id
