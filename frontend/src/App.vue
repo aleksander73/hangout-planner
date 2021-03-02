@@ -1,6 +1,7 @@
 <template>
   <div>
     <register/>
+    <login/>
   </div>
 </template>
 
@@ -40,10 +41,11 @@ button:hover {
 </style>
 
 <script>
-import { Register } from './components';
+import { Login, Register } from './components';
 
 export default {
   components: {
+    'login': Login,
     'register': Register
   }
 }
