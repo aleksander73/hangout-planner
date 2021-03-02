@@ -79,7 +79,17 @@ export default {
         const username = this.getInputFieldById('username').model.value;
         const email = this.getInputFieldById('email').model.value;
         const password = this.getInputFieldById('password').model.value;
-        await apiClient.registerUser(username, email, password);
+        const registrationSucceeded = await apiClient.registerUser(username, email, password);
+        if(registrationSucceeded) {
+          const loginSucceeded = await apiClient.loginUser(username, password);
+          if(loginSucceeded) {
+            console.log(`User ${username} has been logged in`);
+          } else {
+            console.log('We had problems logging your user in');            
+          }
+        } else {
+          console.log('We had problems registering your user');
+        }
       } else {
         inputFields.filter(inputField => !inputField.isValid).forEach(inputField => inputField.validate());
       }
