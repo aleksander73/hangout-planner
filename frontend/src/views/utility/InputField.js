@@ -7,7 +7,7 @@ class InputField {
         this.icon = icon;
         this.placeholder = placeholder || '';
         this.value = '';
-        this.validations = validations || [];
+        this.validations = [...validations] || [];
     }
 
     addValidation(validation) {

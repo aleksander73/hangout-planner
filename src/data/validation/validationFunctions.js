@@ -12,4 +12,4 @@ module.exports = {
     min,
     required,
     simple
-}
+};

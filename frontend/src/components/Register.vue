@@ -50,7 +50,7 @@ export default {
         new InputField('username', 'text', require('../../assets/icons/user.svg'), 'username', usernameValidation),
         new InputField('email', 'text', require('../../assets/icons/email.svg'), 'e-mail', emailValidation),
         new InputField('password', 'password', require('../../assets/icons/password.svg'), 'password', passwordValidation),
-        new InputField('confirm-password', 'password', require('../../assets/icons/password.svg'), 'confirm password', [...passwordValidation])
+        new InputField('confirm-password', 'password', require('../../assets/icons/password.svg'), 'confirm password', passwordValidation)
       ]
     }
   },
