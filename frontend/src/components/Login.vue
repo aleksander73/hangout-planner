@@ -7,7 +7,7 @@
       <input-field v-for="(inputField, index) in inputFields" :key=index :ref=inputField.id :model=inputField />
     </div>
     <button @click=login>Log in</button>
-    <div class="switch">Don't have an account? <a href="/register">Register in</a></div>
+    <div class="switch">Don't have an account? <a href="/register">Register</a></div>
   </div>
 </template>
 
