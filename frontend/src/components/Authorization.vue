@@ -1,17 +1,19 @@
 <template>
   <div class="authorization-container">
-    <div :class="blinkAnimation.active ? 'blink' : ''">
-      <div class="title-container">
-        <h1>{{ title }}</h1>
+    <div class="form-container">
+      <div :class="blinkAnimation.active ? 'blink' : ''">
+        <div class="title-container">
+          <h1>{{ title }}</h1>
+        </div>
+        <div :class="newUser ? '': 'hidden'">
+          <input-field v-for="(inputField, index) in registerInputFields" :key=index :ref=inputField.id :model=inputField @lostFocus=onLostFocus />
+        </div>
+        <div :class="newUser ? 'hidden' : ''">
+          <input-field v-for="(inputField, index) in loginInputFields" :key=index :ref=inputField.id :model=inputField />
+        </div>
+        <button @click=mainAction>{{ buttonLabel }}</button>
+        <div class="switch">{{ switchLabelPrefix }} <span @click=onSwitchClick>{{ switchLabelLink }}</span></div>
       </div>
-      <div :class="newUser ? '': 'hidden'">
-        <input-field v-for="(inputField, index) in registerInputFields" :key=index :ref=inputField.id :model=inputField @lostFocus=onLostFocus />
-      </div>
-      <div :class="newUser ? 'hidden' : ''">
-        <input-field v-for="(inputField, index) in loginInputFields" :key=index :ref=inputField.id :model=inputField />
-      </div>
-      <button @click=mainAction>{{ buttonLabel }}</button>
-      <div class="switch">{{ switchLabelPrefix }} <span @click=onSwitchClick>{{ switchLabelLink }}</span></div>
     </div>
   </div>
 </template>
@@ -19,14 +21,24 @@
 <style scoped>
 .authorization-container {
   align-items: center;
-  background-color: white;
+  background-image: url('../../assets/login-background.png');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.form-container {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  height: 575px;
+  height: 685px;
   justify-content: center;
-  padding: 40px 75px 70px 75px;
-  width: 400px;
+  width: 550px;
 }
 
 .blink {

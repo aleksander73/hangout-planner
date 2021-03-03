@@ -66,7 +66,9 @@
 }
 
 input {
+  background-color: inherit;
   border: 0;
+  font-family: inherit;
   font-size: 1.1em;
   outline: none;
   width: 90%;
