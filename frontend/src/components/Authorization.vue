@@ -1,6 +1,6 @@
 <template>
   <div class="authorization-container">
-    <div class="form-container">
+    <div class="form-container pos-relative">
       <div :class="blinkAnimation.active ? 'blink' : ''">
         <div class="title-container">
           <h1>{{ title }}</h1>
@@ -14,6 +14,7 @@
         <button @click=mainAction>{{ buttonLabel }}</button>
         <div class="switch">{{ switchLabelPrefix }} <span @click=onSwitchClick>{{ switchLabelLink }}</span></div>
       </div>
+      <div :class=errorClass><span>{{ error.message }}</span></div>
     </div>
   </div>
 </template>
@@ -83,6 +84,39 @@ button {
   cursor: pointer;
 }
 
+.error {
+  border: 1px solid rgb(250, 50, 50);
+  bottom: 0;
+  cursor: default;
+  display: none;
+  margin-bottom: 1em;
+  opacity: 0;
+  padding: 0.5em 1em;
+  position: absolute;
+}
+
+.error > span {
+  color: rgb(250, 50, 50);
+}
+
+.error-active {
+  align-items: center;
+  animation: show-error 3s linear;
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes show-error {
+  0% { opacity: 0; }
+  5% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.pos-relative {
+  position: relative;
+}
+
 .hidden {
   display: none;
 }
@@ -114,6 +148,10 @@ export default {
       blinkAnimation: {
         active: false,
         time: 500
+      },
+      error: {
+        message: '',
+        animationTime: 3000
       }
     }
   },
@@ -152,7 +190,7 @@ export default {
         if(registrationSucceeded) {
           await this.login(username, password);
         } else {
-          console.log('We had problems registering your user');
+          this.showError('We had problems registering your user');
         }
       } else {
         inputFields.filter(inputField => !inputField.isValid).forEach(inputField => inputField.validate());
@@ -165,10 +203,11 @@ export default {
       if(loginSucceeded) {
         console.log(`User ${username} has been logged in`);
       } else {
-        console.log('We had problems logging your user in');
+        this.showError('Invalid username or password');
       }
     },
     onSwitchClick() {
+      this.error.message = '';
       this.blinkAnimation.active = true;
       setTimeout(() => {
         this.newUser = !this.newUser;
@@ -176,6 +215,12 @@ export default {
       setTimeout(() => {
         this.blinkAnimation.active = false;
       }, this.blinkAnimation.time);
+    },
+    showError(message) {
+      this.error.message = message;
+      setTimeout(() => {
+        this.error.message = '';
+      }, this.error.animationTime);
     }
   },
   computed: {
@@ -190,6 +235,11 @@ export default {
     },
     switchLabelLink() {
       return this.newUser ? 'Log in' : 'Register';
+    },
+    errorClass() {
+      const staticClasses = 'error';
+      let dynamicClasses = this.error.message ? 'error-active' : '';
+      return `${staticClasses} ${dynamicClasses}`;
     }
   },
   mounted() {
