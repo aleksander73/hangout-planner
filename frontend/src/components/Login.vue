@@ -6,7 +6,7 @@
     <div class="input-container">
       <input-field v-for="(inputField, index) in inputFields" :key=index :ref=inputField.id :model=inputField />
     </div>
-    <button @click=register>Log in</button>
+    <button @click=login>Log in</button>
     <div class="switch">Don't have an account? <a href="/register">Register in</a></div>
   </div>
 </template>
@@ -82,11 +82,11 @@ export default {
       const username = this.getInputFieldById('username').model.value;
       const password = this.getInputFieldById('password').model.value;
       const loginSucceeded = await apiClient.loginUser(username, password);
-        if(loginSucceeded) {
-          console.log(`User ${username} has been logged in`);
-        } else {
-          console.log('We had problems logging your user in');            
-        }
+      if(loginSucceeded) {
+        console.log(`User ${username} has been logged in`);
+      } else {
+        console.log('We had problems logging your user in');            
+      }
     }
   }
 }

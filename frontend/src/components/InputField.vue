@@ -102,7 +102,8 @@ export default {
     model: {
       type: InputField,
       required: true
-    }
+    },
+    validateInput: false
   },
   methods: {
     inputFieldClass(base) {
@@ -115,7 +116,7 @@ export default {
     },
     in_validClassList(base) {
       let dynamicClasses = '';
-      if(this.isValid !== undefined) {
+      if(this.validateInput && this.isValid !== undefined) {
         const prefix = this.isValid ? '' : 'in';
         dynamicClasses += `${base}-${prefix}valid`; 
       }
@@ -125,14 +126,16 @@ export default {
       this.focused = true;
     },
     onInput() {
-      if(this.isValid !== undefined) {
+      if(this.validateInput && this.isValid !== undefined) {
         this.isValid = undefined;
         this.errorMessage = '';
       }
     },
     async onBlur() {
       this.focused = false;
-      await this.validate();
+      if(this.validateInput) {
+        await this.validate();
+      }
       this.$emit('lostFocus', {
         id: this.model.id
       });
