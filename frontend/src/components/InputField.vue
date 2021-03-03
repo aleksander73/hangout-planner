@@ -83,7 +83,7 @@ input {
 }
 
 .error-container > span {
-  color: red;
+  color: rgb(250, 50, 50);
 }
 </style>
 
@@ -93,6 +93,7 @@ import { InputField } from '../views/utility';
 export default {
   data() {
     return {
+      validateInput : false,
       focused: false,
       isValid: undefined,
       errorMessage: ''
@@ -102,8 +103,7 @@ export default {
     model: {
       type: InputField,
       required: true
-    },
-    validateInput: false
+    }
   },
   methods: {
     inputFieldClass(base) {
@@ -146,6 +146,9 @@ export default {
       this.errorMessage = errorMessage;
       return isValid;
     }
+  },
+  created() {
+    this.validateInput = this.model.validations.length > 0;
   }
 }
 </script>

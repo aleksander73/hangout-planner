@@ -4,7 +4,7 @@
       <h1>Join us</h1>
     </div>
     <div class="input-container">
-      <input-field v-for="(inputField, index) in inputFields" :key=index :ref=inputField.id :model=inputField :validateInput=true @lostFocus=onLostFocus />
+      <input-field v-for="(inputField, index) in inputFields" :key=index :ref=inputField.id :model=inputField @lostFocus=onLostFocus />
     </div>
     <button @click=register>Register</button>
     <div class="switch">Already have an account? <a href="/login">Log in</a></div>
