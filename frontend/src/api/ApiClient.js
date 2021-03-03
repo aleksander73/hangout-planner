@@ -12,8 +12,12 @@ class ApiClient {
     }
 
     async loginUser(username, password) {
-        const { status } = await axios.post('/api/user/login', { username, password });
-        return status === 200;
+        try {
+            const { status } = await axios.post('/api/user/login', { username, password });
+            return status === 200;
+        } catch (error) {
+            return false;
+        }
     }
 }
 
