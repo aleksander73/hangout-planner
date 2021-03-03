@@ -1,18 +1,18 @@
 <template>
   <div class="authorization-container">
-    <div class="title-container">
-      <h1>{{ title }}</h1>
-    </div>
-    <div>
+    <div :class="blinkAnimation.active ? 'blink' : ''">
+      <div class="title-container">
+        <h1>{{ title }}</h1>
+      </div>
       <div :class="newUser ? '': 'hidden'">
         <input-field v-for="(inputField, index) in registerInputFields" :key=index :ref=inputField.id :model=inputField @lostFocus=onLostFocus />
       </div>
       <div :class="newUser ? 'hidden' : ''">
         <input-field v-for="(inputField, index) in loginInputFields" :key=index :ref=inputField.id :model=inputField />
       </div>
+      <button @click=mainAction>{{ buttonLabel }}</button>
+      <div class="switch">{{ switchLabelPrefix }} <span @click=onSwitchClick>{{ switchLabelLink }}</span></div>
     </div>
-    <button @click=mainAction>{{ buttonLabel }}</button>
-    <div class="switch">{{ switchLabelPrefix }} <span @click=onSwitchClick>{{ switchLabelLink }}</span></div>
   </div>
 </template>
 
@@ -27,6 +27,16 @@
   justify-content: center;
   padding: 40px 75px 70px 75px;
   width: 400px;
+}
+
+.blink {
+  animation: blink .5s linear;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .title-container {
@@ -89,7 +99,10 @@ export default {
         new InputField('l-username', 'text', require('../../assets/icons/user.svg'), 'username'),
         new InputField('l-password', 'password', require('../../assets/icons/password.svg'), 'password')
       ],
-      registrationInitialized: false
+      blinkAnimation: {
+        active: false,
+        time: 500
+      }
     }
   },
   components: {
@@ -140,11 +153,17 @@ export default {
       if(loginSucceeded) {
         console.log(`User ${username} has been logged in`);
       } else {
-        console.log('We had problems logging your user in');            
+        console.log('We had problems logging your user in');
       }
     },
     onSwitchClick() {
-      this.newUser = !this.newUser;
+      this.blinkAnimation.active = true;
+      setTimeout(() => {
+        this.newUser = !this.newUser;
+      }, this.blinkAnimation.time / 2);
+      setTimeout(() => {
+        this.blinkAnimation.active = false;
+      }, this.blinkAnimation.time);
     }
   },
   computed: {
@@ -166,7 +185,7 @@ export default {
     let password = this.getInputFieldById('r-password').model;
     let confirmPassword = this.getInputFieldById('r-confirm-password').model;
     username.addValidation(usernameUnique);
-    confirmPassword.addValidation(sameAs(password, 'password'));
+    confirmPassword.addValidation(sameAs(password, password.placeholder));
   }
 }
 </script>
