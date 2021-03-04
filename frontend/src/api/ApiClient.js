@@ -7,13 +7,30 @@ class ApiClient {
     }
 
     async registerUser(username, email, password) {
-        const { status } = await axios.post('/api/user/register', { username, email, password });
-        return status === 200;
+        try {
+            const { status } = await axios.post('/api/user/register', { username, email, password });
+            return status === 200;
+        } catch(error) {
+            return false;
+        }
     }
 
     async loginUser(username, password) {
-        const { status } = await axios.post('/api/user/login', { username, password });
-        return status === 200;
+        try {
+            const { status } = await axios.post('/api/user/login', { username, password });
+            return status === 200;
+        } catch (error) {
+            return false;
+        }
+    }
+
+    async whoami() {
+        try {
+            const { data } = await axios.get('/api/user/whoami');
+            return data.user;
+        } catch(error) {
+            return undefined;
+        }
     }
 }
 

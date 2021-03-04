@@ -1,7 +1,9 @@
+import Dashboard from './Dashboard.vue';
 import InputField from './InputField.vue';
-import Register from './Register.vue';
+import Welcome from './Welcome.vue';
 
 export {
+    Dashboard,
     InputField,
-    Register
+    Welcome
 };

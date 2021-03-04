@@ -1,6 +1,6 @@
 <template>
   <div>
-    <register/>
+    <router-view/>
   </div>
 </template>
 
@@ -38,13 +38,3 @@ button:hover {
   background-color: rgb(0, 120, 233);
 }
 </style>
-
-<script>
-import { Register } from './components';
-
-export default {
-  components: {
-    'register': Register
-  }
-}
-</script>

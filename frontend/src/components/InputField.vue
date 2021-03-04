@@ -66,7 +66,9 @@
 }
 
 input {
+  background-color: inherit;
   border: 0;
+  font-family: inherit;
   font-size: 1.1em;
   outline: none;
   width: 90%;
@@ -83,7 +85,7 @@ input {
 }
 
 .error-container > span {
-  color: red;
+  color: rgb(250, 50, 50);
 }
 </style>
 
@@ -93,6 +95,7 @@ import { InputField } from '../views/utility';
 export default {
   data() {
     return {
+      validateInput : false,
       focused: false,
       isValid: undefined,
       errorMessage: ''
@@ -115,7 +118,7 @@ export default {
     },
     in_validClassList(base) {
       let dynamicClasses = '';
-      if(this.isValid !== undefined) {
+      if(this.validateInput && this.isValid !== undefined) {
         const prefix = this.isValid ? '' : 'in';
         dynamicClasses += `${base}-${prefix}valid`; 
       }
@@ -125,14 +128,16 @@ export default {
       this.focused = true;
     },
     onInput() {
-      if(this.isValid !== undefined) {
+      if(this.validateInput && this.isValid !== undefined) {
         this.isValid = undefined;
         this.errorMessage = '';
       }
     },
     async onBlur() {
       this.focused = false;
-      await this.validate();
+      if(this.validateInput) {
+        await this.validate();
+      }
       this.$emit('lostFocus', {
         id: this.model.id
       });
@@ -143,6 +148,9 @@ export default {
       this.errorMessage = errorMessage;
       return isValid;
     }
+  },
+  created() {
+    this.validateInput = this.model.validations.length > 0;
   }
 }
 </script>
