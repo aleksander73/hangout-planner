@@ -37,6 +37,14 @@ class UserService {
         return cryptographyService.generateToken({ username: foundUser.username });
     }
 
+    publicize(user) {
+        const { username, email } = user;
+        return {
+            username,
+            email
+        };
+    }
+
     async validateUser(username, email, password) {
         const { usernameValidation, emailValidation, passwordValidation } = inputValidations.registration;
         const maps = [

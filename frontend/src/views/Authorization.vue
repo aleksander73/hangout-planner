@@ -64,7 +64,6 @@
 }
 
 button {
-  font-weight: 600;
   height: 65px;
   margin-top: 20px;
   text-transform: uppercase;
@@ -123,13 +122,14 @@ button {
 </style>
 
 <script>
-import InputFieldComponent from './InputField.vue';
-import { InputField } from '../views/utility';
+import { InputField as InputFieldComponent } from '../components';
+import { InputField } from './utility';
 import { inputValidations } from '../../../src/data/validation';
 const { usernameValidation, emailValidation, passwordValidation } = inputValidations.registration;
 import { validationFunctions } from '../views/utility';
 const { sameAs, usernameUnique } = validationFunctions;
 import apiClient from '../api/ApiClient';
+import { User } from '../store';
 
 export default {
   data() {
@@ -201,7 +201,7 @@ export default {
       password = password || this.getInputFieldById('l-password').model.value;
       const loginSucceeded = await apiClient.loginUser(username, password);
       if(loginSucceeded) {
-        console.log(`User ${username} has been logged in`);
+        this.$router.push('/');
       } else {
         this.showError('Invalid username or password');
       }
