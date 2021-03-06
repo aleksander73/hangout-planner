@@ -18,8 +18,12 @@
         </div>
       </div>
       <div class="authorize-buttons">
-        <a href="/authorize" @click="routeToAuthorize($event, false)">Log in</a>
-        <a href="/authorize" @click="routeToAuthorize($event, true)">Register</a>
+        <a href="/login" @click="onLoginClick($event)">
+          <button>Log in</button>
+        </a>
+        <a href="/register" @click="onRegisterClick($event)">
+          <button>Register</button>
+        </a>
       </div>
     </div>
   </div>
@@ -86,16 +90,20 @@
 
 .authorize-buttons {
   display: flex;
-  justify-content: space-around;
-  margin: 1vh 3vh;
+  justify-content: space-between;
+  margin: 2vh;
   position: absolute;
   right: 0;
   top: 0;
 }
 
 .authorize-buttons > a {
-  margin: 1em 1.5em;
-  text-decoration: none;
+  margin: 1vh;
+}
+
+.authorize-buttons > a > button {
+  border-radius: 5px;
+  padding: 10px 15px;
 }
 </style>
 
@@ -107,9 +115,13 @@ export default {
     }
   },
   methods: {
-    routeToAuthorize(event, newUser) {
+    onLoginClick(event) {
       event.preventDefault();
-      this.$router.push({ name: 'authorize', params: { newUser } });
+      this.$router.push({ name: 'login', params: { newUser: false } });
+    },
+    onRegisterClick(event) {
+      event.preventDefault();
+      this.$router.push({ name: 'register', params: { newUser: true } });
     }
   }
 }

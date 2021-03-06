@@ -27,11 +27,8 @@ button {
   color: white;
   cursor: pointer;
   font-size: 1.2em;
-  height: 45px;
-  margin-top: 20px;
   outline: none;
   transition: background-color 0.25s ease;
-  width: 400px;
 }
 
 button:hover {

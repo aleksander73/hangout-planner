@@ -8,8 +8,13 @@ const routes = [
         component: Home
     },
     {
-        name:  'authorize',
-        path: '/authorize',
+        name:  'login',
+        path: '/login',
+        component: Authorization
+    },
+    {
+        name:  'register',
+        path: '/register',
         component: Authorization
     }
 ];
