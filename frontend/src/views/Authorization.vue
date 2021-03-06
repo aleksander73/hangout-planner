@@ -242,6 +242,11 @@ export default {
       return `${staticClasses} ${dynamicClasses}`;
     }
   },
+  created() {
+    if(this.$route.params.newUser) {
+      this.newUser = this.$route.params.newUser === 'true';
+    }
+  },
   mounted() {
     let username = this.getInputFieldById('r-username').model;
     let password = this.getInputFieldById('r-password').model;

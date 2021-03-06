@@ -18,8 +18,8 @@
         </div>
       </div>
       <div class="authorize-buttons">
-        <a href="/authorize">Log in</a>
-        <a href="/authorize">Register</a>
+        <a href="/authorize" @click="routeToAuthorize($event, false)">Log in</a>
+        <a href="/authorize" @click="routeToAuthorize($event, true)">Register</a>
       </div>
     </div>
   </div>
@@ -104,6 +104,12 @@ export default {
   data() {
     return {
       
+    }
+  },
+  methods: {
+    routeToAuthorize(event, newUser) {
+      event.preventDefault();
+      this.$router.push({ name: 'authorize', params: { newUser } });
     }
   }
 }
