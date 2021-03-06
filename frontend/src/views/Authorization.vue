@@ -22,7 +22,7 @@
 <style scoped>
 .authorization-container {
   align-items: center;
-  background-image: url('../../assets/login-background.png');
+  background-image: url('../../assets/background-image.jpg');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -33,7 +33,7 @@
 
 .form-container {
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.85);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
