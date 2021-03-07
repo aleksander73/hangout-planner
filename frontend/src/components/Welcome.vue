@@ -104,7 +104,6 @@
 
 .authorize-buttons > a > button {
   background-color: rgb(255, 255, 65);
-  border-radius: 3px;
   color: black;
   padding: 10px 15px;
 }

@@ -24,6 +24,7 @@ h1 {
 button {
   background-color: rgb(22, 142, 255);
   border: 0;
+  border-radius: 3px;
   color: white;
   cursor: pointer;
   font-size: 1.2em;
