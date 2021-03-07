@@ -243,9 +243,7 @@ export default {
     }
   },
   created() {
-    if(this.$route.params.newUser) {
-      this.newUser = this.$route.params.newUser === 'true';
-    }
+    this.newUser = this.$route.name === 'register';
   },
   mounted() {
     let username = this.getInputFieldById('r-username').model;
