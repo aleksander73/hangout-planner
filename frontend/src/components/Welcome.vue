@@ -18,12 +18,8 @@
         </div>
       </div>
       <div class="authorize-buttons">
-        <a href="/login">
-          <button>Log in</button>
-        </a>
-        <a href="/register">
-          <button>Register</button>
-        </a>
+        <a href="/login"><button>Log in</button></a>
+        <a href="/register"><button>Register</button></a>
       </div>
     </div>
   </div>
@@ -62,6 +58,10 @@
   justify-content: center;
 }
 
+.title-container {
+  text-shadow: 3px 3px rgba(255, 255, 255, 0.7);
+}
+
 .title-container > h1 {
   font-size: 5em;
 }
@@ -86,6 +86,7 @@
 
 .subtitle {
   font-size: 1.5em;
+  text-shadow: 2px 2px rgba(255, 255, 255, 0.7);
 }
 
 .authorize-buttons {
@@ -102,17 +103,13 @@
 }
 
 .authorize-buttons > a > button {
+  background-color: rgb(255, 255, 65);
   border-radius: 3px;
+  color: black;
   padding: 10px 15px;
 }
-</style>
 
-<script>
-export default {
-  data() {
-    return {
-      
-    }
-  }
+.authorize-buttons > a > button:hover {
+  background-color: rgb(255, 255, 35);
 }
-</script>
+</style>
