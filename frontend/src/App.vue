@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-container">
     <router-view/>
   </div>
 </template>
@@ -24,14 +24,12 @@ h1 {
 button {
   background-color: rgb(22, 142, 255);
   border: 0;
+  border-radius: 3px;
   color: white;
   cursor: pointer;
   font-size: 1.2em;
-  height: 45px;
-  margin-top: 20px;
   outline: none;
   transition: background-color 0.25s ease;
-  width: 400px;
 }
 
 button:hover {

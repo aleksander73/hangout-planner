@@ -1,5 +1,6 @@
 <template>
   <div class="authorization-container">
+    <my-header/>
     <div class="form-container pos-relative">
       <div :class="blinkAnimation.active ? 'blink' : ''">
         <div class="title-container">
@@ -22,7 +23,7 @@
 <style scoped>
 .authorization-container {
   align-items: center;
-  background-image: url('../../assets/login-background.png');
+  background-image: url('../../assets/background-image.jpg');
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -33,7 +34,7 @@
 
 .form-container {
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(255, 255, 255, 0.95);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -64,6 +65,7 @@
 }
 
 button {
+  border-radius: 0;
   height: 65px;
   margin-top: 20px;
   text-transform: uppercase;
@@ -122,7 +124,7 @@ button {
 </style>
 
 <script>
-import { InputField as InputFieldComponent } from '../components';
+import { Header, InputField as InputFieldComponent } from '../components';
 import { InputField } from './utility';
 import { inputValidations } from '../../../src/data/validation';
 const { usernameValidation, emailValidation, passwordValidation } = inputValidations.registration;
@@ -156,6 +158,7 @@ export default {
     }
   },
   components: {
+    'my-header': Header,
     'input-field': InputFieldComponent
   },
   methods: {
@@ -241,6 +244,9 @@ export default {
       let dynamicClasses = this.error.message ? 'error-active' : '';
       return `${staticClasses} ${dynamicClasses}`;
     }
+  },
+  created() {
+    this.newUser = this.$route.name === 'register';
   },
   mounted() {
     let username = this.getInputFieldById('r-username').model;

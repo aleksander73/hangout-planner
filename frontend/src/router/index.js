@@ -3,11 +3,18 @@ import { Home, Authorization } from '../views';
 
 const routes = [
     {
+        name: 'home',
         path: '/',
         component: Home
     },
     {
-        path: '/authorize',
+        name:  'login',
+        path: '/login',
+        component: Authorization
+    },
+    {
+        name:  'register',
+        path: '/register',
         component: Authorization
     }
 ];
