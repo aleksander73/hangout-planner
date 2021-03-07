@@ -1,11 +1,7 @@
 <template>
-  <div>
-    <div v-if="userLoggedIn === false">
-      <welcome/>
-    </div>
-    <div v-else-if="userLoggedIn === true">
-      <dashboard/>
-    </div>
+  <div class="home-container">
+    <welcome v-if="userLoggedIn === false"/>
+    <dashboard v-else-if="userLoggedIn === true"/>
   </div>
 </template>
 

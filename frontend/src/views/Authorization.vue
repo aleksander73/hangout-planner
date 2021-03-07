@@ -1,5 +1,6 @@
 <template>
   <div class="authorization-container">
+    <my-header/>
     <div class="form-container pos-relative">
       <div :class="blinkAnimation.active ? 'blink' : ''">
         <div class="title-container">
@@ -123,7 +124,7 @@ button {
 </style>
 
 <script>
-import { InputField as InputFieldComponent } from '../components';
+import { Header, InputField as InputFieldComponent } from '../components';
 import { InputField } from './utility';
 import { inputValidations } from '../../../src/data/validation';
 const { usernameValidation, emailValidation, passwordValidation } = inputValidations.registration;
@@ -157,6 +158,7 @@ export default {
     }
   },
   components: {
+    'my-header': Header,
     'input-field': InputFieldComponent
   },
   methods: {

@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <div class="welcone-container">
+    <my-header/>
     <div class="intro">
       <div class="background"></div>
       <div class="heading-container">
@@ -16,10 +17,6 @@
             <h3>Organize your hangouts effortlessly</h3>
           </div>
         </div>
-      </div>
-      <div class="authorize-buttons">
-        <a href="/login"><button>Log in</button></a>
-        <a href="/register"><button>Register</button></a>
       </div>
     </div>
   </div>
@@ -88,27 +85,14 @@
   font-size: 1.5em;
   text-shadow: 2px 2px rgba(255, 255, 255, 0.7);
 }
-
-.authorize-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin: 1vh;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-
-.authorize-buttons > a {
-  margin: 1vh;
-}
-
-.authorize-buttons > a > button {
-  background-color: rgb(255, 255, 65);
-  color: black;
-  padding: 10px 15px;
-}
-
-.authorize-buttons > a > button:hover {
-  background-color: rgb(255, 255, 35);
-}
 </style>
+
+<script>
+import { Header } from '.'; 
+
+export default {
+  components: {
+    'my-header': Header
+  }
+}
+</script>
